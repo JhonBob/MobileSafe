@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@drawable/list_selector"
+    tools:context="com.bob.mobilesafe.activities.HomeActivity">
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_blue_bright"
+        android:text="主界面"
+        android:gravity="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30dip"/>
+
+    <com.bob.mobilesafe.ui.FocusedTextView
+        android:ellipsize="marquee"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textSize="20dip"
+        android:text="我是您的白马小护卫，时刻保护您的手机健康和安全!我是您的白马小护卫，时刻保护您的手机健康和安全!我是您的白马小护卫，时刻保护您的手机健康和安全!"/>
+
+    <GridView
+        android:id="@+id/gv"
+        android:listSelector="@color/touming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:verticalSpacing="8dip"
+        android:horizontalSpacing="8dip"
+        android:numColumns="3">
+    </GridView>
+
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:background="#8866ff00"
+        android:gravity="center"
+        android:text="高级工具"
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:clickable="true"
+        android:id="@+id/numberAddressQuery"
+        android:drawableStart="@android:drawable/btn_star_big_on"
+        android:drawableLeft="@android:drawable/btn_star_big_on"
+        android:background="@drawable/list_selector"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:textSize="20sp"
+        android:text="号码归属地查询"
+        android:gravity="center_vertical"
+        />
+    <TextView
+        android:clickable="true"
+        android:id="@+id/smsBack"
+        android:drawableStart="@android:drawable/btn_star_big_on"
+        android:drawableLeft="@android:drawable/btn_star_big_on"
+        android:background="@drawable/list_selector"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:textSize="20sp"
+        android:text="短信备份"
+        android:gravity="center_vertical"
+        />
+    <TextView
+        android:clickable="true"
+        android:id="@+id/smsRestore"
+        android:drawableStart="@android:drawable/btn_star_big_on"
+        android:drawableLeft="@android:drawable/btn_star_big_on"
+        android:background="@drawable/list_selector"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:textSize="20sp"
+        android:text="短信还原"
+        android:gravity="center_vertical"
+        />
+    <TextView
+        android:clickable="true"
+        android:id="@+id/open_app_lock"
+        android:drawableStart="@android:drawable/btn_star_big_on"
+        android:drawableLeft="@android:drawable/btn_star_big_on"
+        android:background="@drawable/list_selector"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:textSize="20sp"
+        android:text="程序锁"
+        android:gravity="center_vertical"
+        />
+
+
+</LinearLayout>
