@@ -5,31 +5,125 @@ import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.format.Formatter;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 import com.bob.mobilesafe.R;
+import com.bob.mobilesafe.domain.TrafficInfo;
+import com.bob.mobilesafe.engine.TrafficInfoParser;
+
+import java.util.List;
 
 //功能：流量统计
 public class TrafficManagerActivity extends Activity {
+
+
+    //展示数据列表
+    private ListView lv;
+    //获取到所有具有Intenet权限的应用的流量信息
+    private TrafficInfoParser provider;
+    //ProgressBar和TextView（正在加载...）的父控件，用于控制其显示
+    private LinearLayout ll_loading;
+    //封装单个具有Intenet权限的应用的流量信息
+    private List<TrafficInfo> trafficInfos;
+    //处理子线程发送过来的消息，更新UI
+    private Handler handler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            ll_loading.setVisibility(View.INVISIBLE);
+            lv.setAdapter(new TrafficAdapter());
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic_manager);
-        //手机接收和下载的流量
-        long mobileRx=TrafficStats.getMobileRxBytes();
-        //手机发送和上传的流量
-        long mobileTx=TrafficStats.getMobileTxBytes();
-        long totalRx=TrafficStats.getTotalRxBytes();
-        long totalTx=TrafficStats.getTotalTxBytes();
-        //用户ID
-        int uid=0;
 
-        long i=TrafficStats.getUidRxBytes(10041);
-        long e=TrafficStats.getUidTxBytes(10041);
-        ///proc/uid_stat/10041/tcp_rcv  存储的就是下载的流量
-        //proc/uid_stat/10041/tcp_snd 上传的流量
+        lv = (ListView) findViewById(R.id.lv_traffic);
+        provider = new TrafficInfoParser(this);
+        ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
+        ll_loading.setVisibility(View.VISIBLE);
+        //获取到具有Internet权限的应用所产生的流量
+        new Thread(){
+            public void run() {
+                trafficInfos = provider.getTrafficInfos();
+                //想主线程中发送一个空消息，用于通知主线程更新数据
+                handler.sendEmptyMessageDelayed(0,500);
+            }
+        }.start();
+    }
 
-        ConnectivityManager cm=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
-        String type=cm.getActiveNetworkInfo().getTypeName();
+    private class TrafficAdapter extends BaseAdapter {
+        public int getCount() {
+            return trafficInfos.size();
+        }
+
+        public Object getItem(int position) {
+            return trafficInfos.get(position);
+        }
+
+        public long getItemId(int position) {
+            return position;
+        }
+        //ListView中显示多少个Item，该方法就被调用多少次
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            ViewHolder holder = new ViewHolder();
+            TrafficInfo info = trafficInfos.get(position);
+            //复用缓存的View
+            if(convertView==null){
+                view = View.inflate(getApplicationContext(), R.layout.traffic_item, null);
+                holder.iv_icon = (ImageView) view.findViewById(R.id.iv_traffic_icon);
+                holder.tv_name = (TextView) view.findViewById(R.id.tv_traffic_name);
+                holder.tv_rx = (TextView) view.findViewById(R.id.tv_traffic_rx);
+                holder.tv_tx = (TextView) view.findViewById(R.id.tv_traffic_tx);
+                holder.tv_total = (TextView) view.findViewById(R.id.tv_traffic_total);
+                view.setTag(holder);
+            }else{
+                view = convertView;
+                holder = (ViewHolder) view.getTag();
+            }
+            holder.iv_icon.setImageDrawable(info.getIcon());
+            holder.tv_name.setText(info.getAppname());
+            //下载所产生的流量
+            long rx = info.getRx();
+            //上传所产生的流量
+            long tx = info.getTx();
+            //增强程序的健壮性。因为在模拟器上运行时返回值为-1.
+            if(rx<0){
+                rx = 0;
+            }
+            if(tx<0){
+                tx = 0;
+            }
+            holder.tv_rx.setText(Formatter.formatFileSize(getApplicationContext(), rx));
+            holder.tv_tx.setText(Formatter.formatFileSize(getApplicationContext(), tx));
+            //总流量
+            long total = rx + tx;
+            //通过Formatter将long类型的数据转换为MB或这KB，当数字较小时，自动采用KB
+            holder.tv_total.setText(Formatter.formatFileSize(getApplicationContext(), total));
+            return view;
+        }
+    }
+
+
+    //通过static的修饰，保证了栈内存中存在唯一一份字节码且被共用
+    static class ViewHolder{
+        ImageView iv_icon;
+        TextView tv_name;
+        TextView tv_tx;
+        TextView tv_rx;
+        TextView tv_total;
     }
 }
