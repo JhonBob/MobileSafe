@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -211,6 +213,7 @@ public class HomeActivity extends AppCompatActivity {
 
             ImageView iv=(ImageView)mView.findViewById(R.id.iv_home_icon);
             TextView tv=(TextView)mView.findViewById(R.id.tv_home_name);
+            tv.setTextColor(Color.WHITE);
             tv.setText(names[position]);
             if(position==0){
                 String newname = getSharedPreferences("config", MODE_PRIVATE).getString("newname", "");

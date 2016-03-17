@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
-
 import com.bob.mobilesafe.R;
+
 
 //功能：引导基类，抽取公用类
 public  class BaseActivity extends Activity {

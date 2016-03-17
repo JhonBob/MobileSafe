@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,12 +86,13 @@ public class AntiVirusActivity extends Activity {
 
         //雷达动画
         iv_scan = (ImageView) findViewById(R.id.iv_scan);
-        RotateAnimation ra = new RotateAnimation(0, 360,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        ra.setRepeatCount(Animation.INFINITE);
-        ra.setDuration(2000);
-        iv_scan.startAnimation(ra);
+//        RotateAnimation ra = new RotateAnimation(0, 360,
+//                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+//                0.5f);
+//        ra.setRepeatCount(Animation.INFINITE);
+//        ra.setDuration(2000);
+//        iv_scan.startAnimation(ra);
+        iv_scan.startAnimation(AnimationUtils.loadAnimation(this,R.anim.rotate));
         //开始扫描病毒
         scanVirus();
 

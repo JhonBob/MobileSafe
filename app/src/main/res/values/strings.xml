@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">白马小卫士</string>
+    <string name="app_name">手机卫士</string>
     <string name="version">版本号：</string>
     <string name="versionname">内测版</string>
     <string name="title_activity_setup3">Setup3Activity</string>
     <string name="sample_device_admin_description">我是设备的超级管理员。开启我之后就可以清除数据，远程锁屏，必须开启，不开启扣500块钱</string>
-    <string name="sample_device_admin">黑马卫士管理器</string>
+    <string name="sample_device_admin">手机卫士管理器</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tip">我是您的白马小护卫，时刻保护您的手机健康和安全!我是您的白马小护卫，时刻保护您的手机健康和安全!我是您的白马小护卫，时刻保护您的手机健康和安全!</string>
 
 </resources>
