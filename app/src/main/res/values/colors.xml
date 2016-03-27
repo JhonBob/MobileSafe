@@ -7,4 +7,6 @@
     <color name="touming">@android:color/transparent</color>
     <color name="textColorPrimaryDark">#ff000000</color>
     <color name="textColorPrimary">#ffffffff</color>
+    <color name="background">#ff181818</color>
+
 </resources>

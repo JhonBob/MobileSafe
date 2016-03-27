@@ -37,7 +37,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 abortBroadcast();
             }else  if("#*alarm*#".equals(body)){
                 Log.i(TAG, "播放报警音乐");
-                MediaPlayer mediaPlayer=MediaPlayer.create(context, R.raw.ylzs);
+                MediaPlayer mediaPlayer=MediaPlayer.create(context, R.raw.alarm);
                 mediaPlayer.setVolume(1.0f,1.0f);
                 mediaPlayer.start();
                 abortBroadcast();
